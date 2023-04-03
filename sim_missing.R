@@ -98,7 +98,7 @@ inner_loop_sim <- function(rho,p_v,p_vv,p_uv,p_vu,p_uu,obs_p){
                                       id_vax=transmission_pairs_df[,3])
   fit2 <- glm(inf~ vax ,family = "poisson",data =transmission_pairs_df )
   fit <- glm(inf~ vax + id_vax ,family = "poisson",data =transmission_pairs_df )
-#1-exp(fit$coefficients)[2]#
+  #1-exp(fit$coefficients)[2]#
   ret_list <- list()
   ret_list[[1]] <-1-exp(fit2$coefficients)[2]
   ret_list[[2]] <-mean(fit_bg_comp(transmission_pairs_df))
@@ -119,8 +119,8 @@ run_sim_of_ve <- function(rho,obs_p){
 
   ### conditional probability of infection given
   ## vaccinated and unvaccinated
-  p_vu = .25
-  p_uu = .38
+  p_vu = .17
+  p_uu = .22
 
   #### true VE as of EQ 3
   true_ve = 1- (p_vv*p_v + p_uv*p_u)/(p_vu*p_v + p_uu*p_u)
@@ -158,7 +158,7 @@ run_sim_of_ve <- function(rho,obs_p){
 
 ### set observation probability of unvaccinated contact to test
 ## positive
-obs_p <-1
+obs_p <-.1
 
 ## define sequence of homophily to test
 rho_to_test  <- seq(.1,.9,by=.1)
